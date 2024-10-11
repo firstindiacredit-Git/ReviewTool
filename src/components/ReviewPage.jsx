@@ -26,7 +26,6 @@ const Feedback = () => {
     console.log("Comment:", comment);
   };
 
-  // Define emojis based on rating
   const getEmoji = () => {
     if (rating === 1) return "😢";
     if (rating === 2) return "😕";
@@ -35,31 +34,37 @@ const Feedback = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 via-purple-800 to-gray-900">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 via-purple-800 to-gray-900 p-4">
       {submitted && rating <= 3 ? (
-        <div className="backdrop-blur-sm bg-white/30 p-10 rounded-xl shadow-xl text-center">
-          <h1 className="text-4xl font-bold text-green-500 mb-4">
+        <div className="backdrop-blur-sm bg-white/30 p-6 sm:p-10 rounded-xl shadow-xl text-center">
+          <h1 className="text-2xl sm:text-4xl font-bold text-green-500 mb-4">
             Thank you! {getEmoji()}
           </h1>
-          <p className="text-lg text-gray-600">We appreciate your feedback.</p>
+          <p className="text-base sm:text-lg text-gray-600">
+            We appreciate your feedback.
+          </p>
         </div>
       ) : (
-        <div className="border   h-[570px] w-[550px] rounded-lg justify-items-center ">
-          <div className="flex absolute border m-[20px] mt-12 p-1 rounded-lg top-14">
-            <img src={img} alt="img" className="w-[500px] rounded-lg" />
+        <div className="border w-full max-w-lg h-auto sm:h-[570px] rounded-lg justify-items-center p-4">
+          <div className="flex md:w-[480px]  relative border rounded-lg mb-4">
+            <img
+              src={img}
+              alt="img"
+              className="md:w-[500px] md:h-[80px]  sm:h-64 rounded-lg object-cover"
+            />
           </div>
-          <div className="backdrop-blur-sm  bg-white/30 m-4 border mt-36 p-8 rounded-2xl shadow-5xl w-full max-w-lg">
-            <h1 className="text-3xl font-bold bg-white inline-block text-transparent bg-clip-text mb-6 text-center">
+          <div className="backdrop-blur-sm bg-white/30 p-6 text-center sm:p-8 rounded-2xl shadow-lg w-full">
+            <h1 className="text-xl sm:text-3xl font-bold bg-white inline-block text-transparent bg-clip-text mb-4 sm:mb-6 text-center">
               Rate Your Experience
             </h1>
 
-            {/* Emoji Display for 1-3 Stars */}
             {rating && rating <= 3 && (
-              <div className="text-center text-6xl mb-4">{getEmoji()}</div>
+              <div className="text-center text-4xl sm:text-6xl mb-4">
+                {getEmoji()}
+              </div>
             )}
 
-            {/* Star Rating */}
-            <div className="flex justify-center gap-2 mb-6">
+            <div className="flex justify-center gap-2 mb-4 sm:mb-6">
               {[...Array(5)].map((star, index) => {
                 const ratingValue = index + 1;
 
@@ -73,12 +78,12 @@ const Feedback = () => {
                       onClick={() => handleRating(ratingValue)}
                     />
                     <IoIosStar
-                      className={`cursor-pointer transition-transform duration-200 transform hover:scale-110 ${
+                      className={`cursor-pointerh md:h-14 md:w-20 transition-transform duration-200 transform hover:scale-110 ${
                         ratingValue <= (hover || rating)
                           ? "text-yellow-400"
                           : "text-gray-300"
                       }`}
-                      size={50}
+                      size={40}
                       onMouseEnter={() => setHover(ratingValue)}
                       onMouseLeave={() => setHover(null)}
                     />
@@ -87,11 +92,10 @@ const Feedback = () => {
               })}
             </div>
 
-            {/* Comment Field for 1-3 Stars */}
             {rating && rating <= 3 && (
-              <div className="mb-6">
+              <div className="mb-4 sm:mb-6">
                 <textarea
-                  className="w-full p-2 backdrop-blur-sm bg-white/30 border border-gray-300 rounded-md"
+                  className="w-full  p-2 sm:p-4 backdrop-blur-sm bg-white/50 border border-gray-300 rounded-md placeholder-black"
                   placeholder="Please leave a comment..."
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
@@ -99,11 +103,10 @@ const Feedback = () => {
               </div>
             )}
 
-            {/* Submit Button for 1-3 Stars */}
             {rating && rating <= 3 && (
               <button
                 onClick={handleSubmit}
-                className="bg-gradient-to-r from-blue-500 to-teal-400 text-white px-4 py-2 font-bold rounded-md hover:bg-blue-600 transition-colors"
+                className="bg-gradient-to-r from-blue-500 to-teal-400 text-white px-4 py-2 font-bold rounded-md hover:bg-blue-600 transition-colors w-full sm:w-auto"
               >
                 Submit your Feedback
               </button>
